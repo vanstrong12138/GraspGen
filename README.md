@@ -10,9 +10,7 @@ PiPER机械臂、YoloV8-Pose模型、TensorRT、运动学正逆解、位姿控�
 
 ## 仓库
 
-- piper_kinematics
-- piper_ros
-- tensorrtx_yolo_ros
+- GraspGen:[https://github.com/vanstrong12138/GraspGen](https://github.com/vanstrong12138/GraspGen)
 
 ## 环境配置
 
