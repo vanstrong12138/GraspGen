@@ -1,0 +1,70 @@
+<mujoco model="piper_camera">
+    <compiler angle="radian" meshdir="/home/khalillee/sim1_ws/src/piper_ros/src/piper_description/meshes/" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="base_link" file="base_link.STL" />
+        <mesh name="link1" file="link1.STL" />
+        <mesh name="link2" file="link2.STL" />
+        <mesh name="link3" file="link3.STL" />
+        <mesh name="link4" file="link4.STL" />
+        <mesh name="link5" file="link5.STL" />
+        <mesh name="link7" file="link7.STL" />
+        <mesh name="link8" file="link8.STL" />
+    </asset>
+    <worldbody>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="base_link" />
+        <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="base_link" />
+        <body name="link1" pos="0 0 0.123" quat="0.707105 0 0 -0.707108">
+            <inertial pos="0.00131676 0.000310289 -0.00922875" quat="0.557105 0.432155 0.377373 0.600388" mass="0.097868" diaginertia="9.25942e-05 8.3083e-05 7.69469e-05" />
+            <joint name="joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-2.618 2.618" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link1" />
+            <geom quat="0.707105 0 0 0.707108" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link1" />
+            <body name="link2" pos="0 0 0" quat="0.508648 0.491198 -0.508652 -0.491198">
+                <inertial pos="0.148794 -0.00242027 0.00175155" quat="-0.0249063 0.70684 0.00803509 0.706889" mass="0.290889" diaginertia="0.00177549 0.00173142 0.00014552" />
+                <joint name="joint2" pos="0 0 0" axis="0 0 1" limited="true" range="0 3.14" />
+                <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link2" />
+                <geom quat="0.99875 0 0 0.0499792" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link2" />
+                <body name="link3" pos="0.28358 0.028726 0" quat="0.999455 0 0 0.0330157">
+                    <inertial pos="-0.0996835 0.0349477 0.000508026" quat="0.0777021 0.702287 -0.0990541 0.700674" mass="0.290848" diaginertia="0.000241946 0.000222224 0.000100384" />
+                    <joint name="joint3" pos="0 0 0" axis="0 0 1" limited="true" range="-2.697 0" />
+                    <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link3" />
+                    <geom quat="0.640997 0 0 -0.767544" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link3" />
+                    <body name="link4" pos="-0.24221 0.068514 0" quat="0.544767 -0.544769 -0.450809 0.450808">
+                        <inertial pos="0.000276465 -0.00102804 -0.00472831" quat="0.492305 0.505285 0.503294 0.499017" mass="0.127087" diaginertia="4.87057e-05 4.10595e-05 3.82001e-05" />
+                        <joint name="joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-1.832 1.832" />
+                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link4" />
+                        <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link4" />
+                        <body name="link5" pos="0 0 0" quat="0.707105 0.707108 0 0">
+                            <inertial pos="8.82262e-05 0.0566829 -0.0019612" quat="0.507447 0.490986 0.506887 0.494466" mass="0.144711" diaginertia="5.63237e-05 4.88652e-05 4.39642e-05" />
+                            <joint name="joint5" pos="0 0 0" axis="0 0 1" limited="true" range="-1.22 1.22" />
+                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link5" />
+                            <geom quat="0.000796327 0 0 -1" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link5" />
+                            <body name="link6" pos="0 0.091 0.0014165" quat="0.499998 -0.5 -0.5 -0.500002">
+                                <inertial pos="0.000811104 0.00957732 0.043653" quat="0.695978 0.0750805 -0.110137 0.705583" mass="0.248152" diaginertia="0.000293093 0.000233102 0.000168631" />
+                                <joint name="joint6" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14 3.14" />
+                                <geom size="0.1 0.04" pos="0 0.075 0.03" quat="0.499998 -0.5 -0.5 -0.500002" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.8 0.3 0.1 0.5" />
+                                <geom size="0.1 0.04" pos="0 0.075 0.03" quat="0.573271 -0.413954 -0.413955 -0.573275" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.8 0.3 0.1 0.5" />
+                                <geom pos="0 0 0.13503" quat="0.499998 0.5 0.500002 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link7" />
+                                <geom pos="0.000300004 -0.000999999 0.13503" quat="-0.499604 -0.499602 0.500396 0.500398" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link7" />
+                                <geom pos="0 0 0.13503" quat="0.499998 -0.5 -0.500002 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="link8" />
+                                <geom pos="-0.000299996 -0.001 0.13503" quat="0.500398 0.4996 0.499602 0.5004" type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link8" />
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <motor name="joint1_motor" joint="joint1" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <motor name="joint2_motor" joint="joint2" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <motor name="joint3_motor" joint="joint3" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <motor name="joint4_motor" joint="joint4" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <motor name="joint5_motor" joint="joint5" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <motor name="joint6_motor" joint="joint6" gear="1000" forcelimited="true" forcerange="-5 5"/>
+        <!-- <position name="joint7" ctrllimited="true" ctrlrange="0 0.0475" joint="joint7" kp="10000" user="1" forcelimited="false" forcerange="-100 100"/>
+        <position name="joint8" ctrllimited="true" ctrlrange="-0.0475 0" joint="joint8" kp="10000" user="1" forcelimited="false" forcerange="-100 100"/> -->
+    </actuator>
+    
+</mujoco>

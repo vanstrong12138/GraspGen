@@ -1,0 +1,38 @@
+<launch>
+    <arg name="engine_path" default="$(find tensorrtx_yolov8_ros)/config/yolov8n-seg.engine"/>
+    <arg name="labels_path" default="$(find tensorrtx_yolov8_ros)/config/coco.txt"/>
+    <arg name="cuda_post_process" default="c"/>  <!-- 'c' for CPU or 'g' for GPU post-processing -->
+    <arg name="debug" default="true"/>
+    <arg name="publish_results" default="false"/>
+    <arg name="color_image_topic" default="/camera/color/image_raw"/>
+    <arg name="depth_camera_info_topic" default="/camera/aligned_depth_to_color/camera_info"/>
+    <arg name="depth_image_topic" default="/camera/aligned_depth_to_color/image_raw"/>   
+    <!-- <arg name="depth_camera_info_topic" default="/camera/depth/camera_info"/>
+    <arg name="depth_image_topic" default="/camera/depth/image_raw"/> -->
+
+
+    <node pkg="tensorrtx_yolov8_ros" type="yolov8_seg" name="yolov8_seg_node" output="screen">
+        <param name="engine_path" value="$(arg engine_path)"/>
+        <param name="labels_path" value="$(arg labels_path)"/>
+        <param name="cuda_post_process" value="$(arg cuda_post_process)"/>
+        <param name="debug" value="$(arg debug)"/>
+        <param name="publish_results" value="$(arg publish_results)"/>
+        <param name="depth_camera_info_topic" value="$(arg depth_camera_info_topic)"/>
+        <param name="depth_image_topic" value="$(arg depth_image_topic)"/>
+        <param name="color_image_topic" value="$(arg color_image_topic)"/>
+    </node>
+<!-- 
+    <node pkg="tensorrtx_yolov8_ros" type="item_confer.py" name="item_confer_node" output="screen">
+    </node> -->
+
+    <node pkg="tensorrtx_yolov8_ros" type="arm_action.py" name="arm_action_node" output="screen">
+    </node>
+
+
+    <!-- If you need image visualization, you can add this -->
+    <!-- <group if="$(arg debug)">
+        <node name="image_view" pkg="image_view" type="image_view">
+            <remap from="image" to="detection_result"/>
+        </node>
+    </group> -->
+</launch>

@@ -1,0 +1,104 @@
+<mujoco model="piper">
+    <compiler angle="radian" />
+    <size njmax="500" nconmax="100" />
+    <option timestep="0.000005"/>
+    <option cone="elliptic"/>
+    <option impratio="0.5"/>
+    <option integrator="RK4"/>  <!-- 更稳定的积分器 -->
+    <asset>
+        <mesh name="base_link" file="../meshes/base_link.STL" />
+        <mesh name="link1" file="../meshes/link1.STL" />
+        <mesh name="link2" file="../meshes/link2.STL" />
+        <mesh name="link3" file="../meshes/link3.STL" />
+        <mesh name="link4" file="../meshes/link4.STL" />
+        <mesh name="link5" file="../meshes/link5.STL" />
+        <mesh name="link6" file="../meshes/link6.STL" />
+        <mesh name="gripper_base" file="../meshes/gripper_base.STL" />
+        <mesh name="link7" file="../meshes/link7.STL" />
+        <mesh name="link8" file="../meshes/link8.STL" />
+    </asset>
+    <worldbody>
+        <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="base_link" />
+        <body name="link1" pos="0 0 0.123">
+            <inertial pos="0.000121505 0.000104632 -0.00438597" quat="0.682111 0.730899 0.0143111 -0.0175062" mass="0.71" diaginertia="0.000489262 0.000439887 0.000404551" />
+            <joint name="joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-2.618 2.618" damping="0.5"/>
+            <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link1" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+            <body name="link2" pos="0 0 0" quat="0.0356735 -0.0356786 -0.706207 -0.706205">
+                <inertial pos="0.198666 -0.0109269 0.00142122" quat="0.510131 0.475585 0.525075 0.48773" mass="1.17" diaginertia="0.0679032 0.067745 0.00111966" />
+                <joint name="joint2" pos="0 0 0" axis="0 0 1" limited="true" range="0 3.14" damping="0.5" stiffness="10000"/>
+                <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link2" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                <body name="link3" pos="0.28503 0 0" quat="0.637536 0 0 -0.77042">
+                    <inertial pos="-0.0202738 -0.133915 -0.000458683" quat="0.706282 0.705111 0.0532202 0.0339395" mass="0.5" diaginertia="0.0138227 0.0138032 0.000244685" />
+                    <joint name="joint3" pos="0 0 0" axis="0 0 1" limited="true" range="-2.967 0" damping="0.5" stiffness="10000"/>
+                    <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link3" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                    <body name="link4" pos="-0.021984 -0.25075 0" quat="0.707105 0.707108 0 0">
+                        <inertial pos="-9.66636e-05 0.000876064 -0.00496881" quat="0.714689 -0.0948484 0.0635223 0.690064" mass="0.38" diaginertia="0.000191586 0.000185052 0.000152863" />
+                        <joint name="joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-1.745 1.745" damping="0.5" stiffness="10000"/>
+                        <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link4" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                        <body name="link5" pos="0 0 0" quat="0.707105 -0.707108 0 0">
+                            <inertial pos="-4.10554e-05 -0.0566487 -0.00372058" quat="0.709589 0.704614 0.00134613 -0.00132656" mass="0.383" diaginertia="0.00166169 0.00164328 0.000185028" />
+                            <joint name="joint5" pos="0 0 0" axis="0 0 1" limited="true" range="-1.22 1.22" damping="0.5" stiffness="10000"/>
+                            <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link5" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                            <body name="link6" pos="8.8259e-05 -0.091 0" quat="0.707105 0.707108 0 0">
+                                <inertial pos="-0.000182345 7.94104e-05 0.0316214" quat="0.999977 6.30554e-05 0.00678017 0.000789386" mass="0.456991" diaginertia="0.000938039 0.000723068 0.000395388" />
+                                <joint name="joint6" pos="0 0 0" axis="0 0 1" limited="true" range="-2.0944 2.0944" damping="0.5" stiffness="10000"/>
+                                <geom type="mesh" rgba="0.898039 0.917647 0.929412 1" mesh="link6" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                                <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="gripper_base" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                                <body name="link7" pos="0 0 0.1358" quat="0.707105 0.707108 0 0">
+                                    <inertial pos="0.000651232 -0.049193 0.00972259" quat="0.477798 0.572974 -0.518028 0.418398" mass="0.025" diaginertia="7.74531e-05 7.36783e-05 5.0886e-06" />
+                                    <joint name="joint7" pos="0 0 0" axis="0 0 1" type="slide" limited="true" range="0 0.035" damping="100"/>
+                                    <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link7" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                                </body>
+                                <body name="link8" pos="0 0 0.1358" quat="-2.59734e-06 -2.59735e-06 -0.707108 -0.707105">
+                                    <inertial pos="0.000651232 -0.049193 0.00972259" quat="0.477798 0.572974 -0.518028 0.418398" mass="0.025" diaginertia="7.74531e-05 7.36783e-05 5.0886e-06" />
+                                    <joint name="joint8" pos="0 0 0" axis="0 0 -1" type="slide" limited="true" range="-0.035 0" damping="100"/>
+                                    <geom type="mesh" rgba="0.792157 0.819608 0.933333 1" mesh="link8" friction="0.03 0.7 1" solimp="0.9 0.95 0.001" solref="0.01 1" contype="1" conaffinity="1"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <actuator>
+        <general name="joint1_actuator" joint="joint1" gear="1" gainprm="10" biasprm="0 5000 500"/>
+        <general name="joint2_actuator" joint="joint2" gear="5" gainprm="5000" biasprm="0 5000 1000"/>
+        <general name="joint3_actuator" joint="joint3" gear="1" gainprm="2500" biasprm="0 2500 500"/>
+        <general name="joint4_actuator" joint="joint4" gear="1" gainprm="10" biasprm="0 5000 500"/>
+        <general name="joint5_actuator" joint="joint5" gear="1" gainprm="5000" biasprm="0 5000 500"/>
+        <general name="joint6_actuator" joint="joint6" gear="1" gainprm="10" biasprm="0 5000 500"/>
+
+        <!-- <position name="joint1_pos_actuator" joint="joint1"/>
+        <position name="joint2_pos_actuator" joint="joint2"/>
+        <position name="joint3_pos_actuator" joint="joint3"/>
+        <position name="joint4_pos_actuator" joint="joint4"/>
+        <position name="joint5_pos_actuator" joint="joint5"/>
+        <position name="joint6_pos_actuator" joint="joint6"/>
+
+        <velocity name="joint1_vel_actuator" joint="joint1"/>
+        <velocity name="joint2_vel_actuator" joint="joint2"/>
+        <velocity name="joint3_vel_actuator" joint="joint3"/>
+        <velocity name="joint4_vel_actuator" joint="joint4"/>
+        <velocity name="joint5_vel_actuator" joint="joint5"/>
+        <velocity name="joint6_vel_actuator" joint="joint6"/> -->
+
+        <position name="joint7_actuator" joint="joint7" kp="1000" user="1" forcelimited="false" forcerange="-100 100"/>
+        <position name="joint8_actuator" joint="joint8" kp="1000" user="1" forcelimited="false" forcerange="-100 100"/>
+    </actuator>
+    <sensor>
+        <jointpos name="j1_pos" joint="joint1"/>
+        <jointpos name="j2_pos" joint="joint2"/>
+        <jointpos name="j3_pos" joint="joint3"/>
+        <jointpos name="j4_pos" joint="joint4"/>
+        <jointpos name="j5_pos" joint="joint5"/>
+        <jointpos name="j6_pos" joint="joint6"/>
+
+        <jointvel name="j1_vel" joint="joint1"/>
+        <jointvel name="j2_vel" joint="joint2"/>
+        <jointvel name="j3_vel" joint="joint3"/>
+        <jointvel name="j4_vel" joint="joint4"/>
+        <jointvel name="j5_vel" joint="joint5"/>
+        <jointvel name="j6_vel" joint="joint6"/>
+    </sensor>
+</mujoco>
