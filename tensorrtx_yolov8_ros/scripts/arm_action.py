@@ -210,6 +210,7 @@ class PoseTransformer:
         self.transformed_pose = None
         self.current_target_pose = None
         self.original_target_pose = None  # 保存原始目标姿态
+        self.z_down_pose = None
         self.continuous_publishing = False
         self.gripper_cmd = 0.0
         self.robot_state = RobotState.IDLE
@@ -254,6 +255,60 @@ class PoseTransformer:
         pose.pose.orientation.z = orientation[2]
         pose.pose.orientation.w = orientation[3]
         return pose
+
+    def correct_pose_z_down(self, original_pose):
+        # 获取原始四元数
+        original_quat = [
+            original_pose.pose.orientation.x,
+            original_pose.pose.orientation.y,
+            original_pose.pose.orientation.z,
+            original_pose.pose.orientation.w
+        ]
+        
+        # 转换为旋转矩阵
+        R_original = tf_trans.quaternion_matrix(original_quat)[:3, :3]
+        
+        # 提取Z轴向量（原始姿态的Z方向）
+        z_axis_original = R_original[:, 2]
+        
+        # 我们希望新的Z轴指向地面（向下）
+        z_axis_desired = np.array([0, 0, -1])  # Z轴向下
+        
+        # 计算旋转使得原始Z轴对准期望的向下Z轴
+        # 使用轴角表示法
+        rotation_axis = np.cross(z_axis_original, z_axis_desired)
+        
+        if np.linalg.norm(rotation_axis) < 1e-6:
+            # 如果Z轴已经向下（或向上），使用特殊处理
+            if z_axis_original[2] < 0:
+                # 已经向下，不需要旋转
+                new_quat = original_quat
+            else:
+                # Z轴向上，绕任意水平轴旋转180度
+                rotation_axis = np.array([1, 0, 0])  # 绕X轴
+                angle = np.pi
+                rotation_quat = tf_trans.quaternion_about_axis(angle, rotation_axis)
+                new_quat = tf_trans.quaternion_multiply(rotation_quat, original_quat)
+        else:
+            rotation_axis = rotation_axis / np.linalg.norm(rotation_axis)
+            angle = np.arccos(np.clip(np.dot(z_axis_original, z_axis_desired), -1, 1))
+            
+            # 创建旋转四元数
+            rotation_quat = tf_trans.quaternion_about_axis(angle, rotation_axis)
+            
+            # 应用旋转
+            new_quat = tf_trans.quaternion_multiply(rotation_quat, original_quat)
+        
+        # 更新pose
+        corrected_pose = PoseStamped()
+        corrected_pose.header = original_pose.header
+        corrected_pose.pose.position = original_pose.pose.position
+        corrected_pose.pose.orientation.x = new_quat[0]
+        corrected_pose.pose.orientation.y = new_quat[1]
+        corrected_pose.pose.orientation.z = new_quat[2]
+        corrected_pose.pose.orientation.w = new_quat[3]
+        
+        return corrected_pose
 
     def transform_pose(self, pose_msg, target_frame='base_link'):
         """坐标变换"""
@@ -312,7 +367,7 @@ class PoseTransformer:
 
     def publish_pose_with_ik_check(self, pose=None):
         """发布姿势并检查逆解状态"""
-        target_pose = pose if pose else self.transformed_pose
+        target_pose = pose if pose else self.correct_pose_z_down(self.transformed_pose)
         
         if not target_pose:
             rospy.logwarn("No pose available to publish")
@@ -324,7 +379,9 @@ class PoseTransformer:
             return False
         
         # 保存原始目标姿态
+
         self.original_target_pose = target_pose
+
         self.pose_adjuster.generate_adjustment_sequence()
         
         # 重置调整状态
@@ -357,6 +414,7 @@ class PoseTransformer:
         pitch_adjustment, roll_adjustment = adjustment_values
         
         # 调整姿态
+
         adjusted_pose = self.pose_adjuster.adjust_pose_orientation(
             self.original_target_pose, pitch_adjustment, roll_adjustment
         )

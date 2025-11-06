@@ -351,7 +351,7 @@ public:
                     point.b = color[0];
                     
                     if(labels_map[(int)dets[i].class_id]=="bottle" || labels_map[(int)dets[i].class_id]=="mouse" || 
-                        labels_map[(int)dets[i].class_id]=="cell phone"){
+                        labels_map[(int)dets[i].class_id]=="cell phone" || labels_map[(int)dets[i].class_id]=="orange"){
                     object_clouds[i]->push_back(point);
                     }
                 }

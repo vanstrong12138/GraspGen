@@ -14,7 +14,8 @@ class InteractivePoseMarker:
         # 参数
         self.marker_name = rospy.get_param('~marker_name', 'target_pose')
         self.reference_frame = rospy.get_param('~reference_frame', 'base_link')
-        self.initial_position = rospy.get_param('~initial_position', [0.5, 0.0, 0.5])
+        self.initial_position = rospy.get_param('~initial_position', [0.17016839981079102, 0.0, 0.24231570959091187])
+        self.initial_orientation = rospy.get_param('~initial_orientation', [-8.328101586130288e-08, 0.6931365132331848, 4.590471613941105e-10, 0.7208064198493958])
         self.marker_scale = rospy.get_param('~marker_scale', 0.2)
         self.pose_topic = rospy.get_param('~pose_topic', '/target_pose')
         
@@ -44,7 +45,10 @@ class InteractivePoseMarker:
         int_marker.pose.position.x = self.initial_position[0]
         int_marker.pose.position.y = self.initial_position[1]
         int_marker.pose.position.z = self.initial_position[2]
-        int_marker.pose.orientation.w = 1.0
+        int_marker.pose.orientation.x = self.initial_orientation[0]
+        int_marker.pose.orientation.y = self.initial_orientation[1]
+        int_marker.pose.orientation.z = self.initial_orientation[2]
+        int_marker.pose.orientation.w = self.initial_orientation[3]
         int_marker.scale = self.marker_scale
 
         # 添加6自由度控制
