@@ -122,6 +122,10 @@ pip install -e .
 
 ```
 
+2. 模型下载
+   1. 提交表格获取HugginFace模型下载资格[https://huggingface.co/facebook/sam3](https://huggingface.co/facebook/sam3)
+   2. 国内镜像站搜索
+
 ### 机械臂驱动部署
 项目发布的是target_pose末端位姿，可以手动修改为其他机械臂
 
@@ -134,7 +138,6 @@ git clone https://github.com/agilexrobotics/pyAgxArm.git
 cd pyAgxArm
 pip install .
 ```
-
 
 ## 克隆
 
